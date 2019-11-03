@@ -1,24 +1,24 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {View,AsyncStorage, ImageBackground,Alert,TouchableOpacity,Image,KeyboardAvoidingView,TextInput, Text, StyleSheet} from 'react-native';
 import { connect } from 'react-redux';
 import * as TasksActons from  '../../src/store/actions/taskAction';
 import { gerarIdentificador } from '../../src/funcoes';
 
-// import { Provider } from 'react-redux';
-// import { PersistGate } from 'redux-persist/integration/react';
-// import {store, persistor} from '../store';
-
-
 import bgLogin from '../assets/bgLogin.jpg';
 import logo from '../assets/logo.png';
 
-
-const  Login = ({data, dispatch, navigation}) =>{
+const  Login = ({dadosUsuario, dispatch, navigation}) =>{
 
   const [cadastraOuLoga, setCadastraOuLoga] = useState(false);
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');  
   const [senhaConfirm,setSenhaConfirm] = useState('');
+  
+  //Verificar se tem algum usuário autenticado
+  // e redireciona para tela Home  
+  if(dadosUsuario){
+    navigation.navigate('Home');
+  }
   
 
 
@@ -31,12 +31,10 @@ const  Login = ({data, dispatch, navigation}) =>{
     //Regra para autenticar    
     if(!cadastraOuLoga && usuarios){            
       await usuarios.cadastrados.map((dados, index, array) =>{
-        if(dados.usuario === usuario && senha === dados.senha){
-          console.log('ENCONTROU');
+        if(dados.usuario === usuario && senha === dados.senha){          
           usuarioAutenticado = dados;
           return true;          
-        }else{
-          console.log('NÃO ENCONTROU');
+        }else{          
           return false;
         }
       });
@@ -92,8 +90,7 @@ const  Login = ({data, dispatch, navigation}) =>{
     setCadastraOuLoga(!cadastraOuLoga);
   }
   return (       
-    // <Provider store={store}>  
-    // <PersistGate loading={null} persistor={persistor}>
+  
     <ImageBackground source={bgLogin} style={styles.container}> 
       <Image source={logo} />
 
@@ -143,12 +140,10 @@ const  Login = ({data, dispatch, navigation}) =>{
           <Text style={styles.label}>Não possuo cadastro!</Text>
         </TouchableOpacity>        
       </View>      
-  </ImageBackground> 
-  // </PersistGate>
-  //   </Provider>  
+  </ImageBackground>   
   )
 }
-export default connect(state => ({ data: state.usuarioReduce} ))(Login);
+export default connect(state => ({ dadosUsuario: state.usuarioReduce} ))(Login);
 
 const styles = StyleSheet.create({
   container:{

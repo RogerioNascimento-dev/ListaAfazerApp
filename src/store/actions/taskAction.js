@@ -40,3 +40,9 @@ export function autenticaUsuario(id,nome){
   }
 }
 
+export function logout(){
+  return {
+    type: 'LOGOUT_USUARIO',
+  }
+}
+

@@ -1,8 +1,4 @@
-const INITIAL_STATE = [      
-  {
-    id:1,status: false,nome: 'Limpar o quarto',  descricao: 'Não esquecer de limpar em baixo da cama'
-  },    
-];
+const INITIAL_STATE = [{}];
 
 export default function taskReduce(state = [], action){    
   

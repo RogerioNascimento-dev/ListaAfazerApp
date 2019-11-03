@@ -4,10 +4,12 @@ import {withNavigation} from 'react-navigation';
 import logoWhite from '../assets/logo-white.png';
 import {Entypo} from '@expo/vector-icons';
 import { connect } from 'react-redux';
+import * as TasksActons from  '../../src/store/actions/taskAction';
 
 const Header = ({dadosUsuario, dispatch,navigation}) =>{
   
   function handleLogOut(){
+    dispatch(TasksActons.logout());
     navigation.navigate('Login');
   }
 
