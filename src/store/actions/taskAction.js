@@ -12,7 +12,7 @@ export function excluirTask(id){
   }
 }
 export function adicionaTarefa(id_usuario,id_tarefa,nome,descricao){
-  console.log('Aqui é o arquivo task actions');
+  
   return {
     type: 'ADICIONAR_TAREFA',
     id_usuario,

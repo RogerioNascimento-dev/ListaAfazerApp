@@ -56,25 +56,22 @@ const  Login = ({dadosUsuario, dispatch, navigation}) =>{
       if(!usuarios){
         const novo_id = gerarIdentificador();
         const primeiroUsuario = {
-          autenticado: novo_id,
-          cadastrados: [{
+            autenticado: novo_id,
+            cadastrados: [{
             id: novo_id,
             usuario: usuario,
             senha: senha,
             }]
-        }
-        console.log('Tentando cadastrar o primeiro');
+        }        
         await AsyncStorage.setItem('userData', JSON.stringify(primeiroUsuario));
         Alert.alert(`${usuario} Cadastrado com sucesso!`);
-      }else{
-        console.log('enctrou para cadastrar');
+      }else{        
         const novo_id = gerarIdentificador();
         const novo_usuario = {  
             id: novo_id,
             usuario: usuario,
             senha: senha,
             }
-
             usuarios.autenticado = novo_id;
             usuarios.cadastrados.push(novo_usuario);
             await AsyncStorage.setItem('userData', JSON.stringify(usuarios));
@@ -89,6 +86,11 @@ const  Login = ({dadosUsuario, dispatch, navigation}) =>{
   function toggleCadastro(){
     setCadastraOuLoga(!cadastraOuLoga);
   }
+
+  const textCadastroOuLogin = (cadastraOuLoga)?'Efetuar login.':'Não possuo Cadastro.';
+  const textBtnCadastroOuLogin = (cadastraOuLoga)?'Cadastrar':'Logar';
+
+  
   return (       
   
     <ImageBackground source={bgLogin} style={styles.container}> 
@@ -112,7 +114,7 @@ const  Login = ({dadosUsuario, dispatch, navigation}) =>{
         placeholder="Informe a senha"
         autoCapitalize="none"
         autoCorrect={false}
-        keyboardType="visible-password"
+        secureTextEntry={true}
         value={senha}
         onChangeText={setSenha}        
         />
@@ -120,24 +122,23 @@ const  Login = ({dadosUsuario, dispatch, navigation}) =>{
         {cadastraOuLoga && (
           <>
           <Text style={styles.label}>Confirmar</Text>
-          <TextInput 
-          style={styles.input}
-          placeholder="informe novamente a senha"
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="visible-password"
-          value={senhaConfirm}
-          onChangeText={setSenhaConfirm}        
-          />
+            <TextInput 
+              style={styles.input}
+              placeholder="informe novamente a senha"
+              autoCapitalize="none"
+              autoCorrect={false}              
+              secureTextEntry={true}
+              value={senhaConfirm}
+              onChangeText={setSenhaConfirm}        
+            />
           </>
         )}
-
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.textButton}>Entrar</Text>
+        <TouchableOpacity style={styles.button} onPress={() => handleLogin()}>
+          <Text style={styles.textButton}>{textBtnCadastroOuLogin}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.buttonCadastrar} onPress={() => toggleCadastro()}>
-          <Text style={styles.label}>Não possuo cadastro!</Text>
+          <Text style={styles.label}>{textCadastroOuLogin}</Text>
         </TouchableOpacity>        
       </View>      
   </ImageBackground>   

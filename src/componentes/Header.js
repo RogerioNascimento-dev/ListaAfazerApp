@@ -12,9 +12,6 @@ const Header = ({dadosUsuario, dispatch,navigation}) =>{
     dispatch(TasksActons.logout());
     navigation.navigate('Login');
   }
-
-  console.log('sentro do header');
-  console.log(dadosUsuario);
   return (
     <SafeAreaView style={styles.container}>
       <Image source={logoWhite} style={styles.logoWhite}/>

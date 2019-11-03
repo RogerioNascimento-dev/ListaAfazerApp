@@ -1,7 +1,4 @@
-const INITIAL_STATE = [{}];
-
-export default function taskReduce(state = [], action){    
-  
+export default function taskReduce(state = [], action){
   if(action.type === 'TOOGLE_STATUS'){
     const newState = state.map((dados,index,array) =>{
       if(dados.id === action.id){
@@ -31,8 +28,7 @@ export default function taskReduce(state = [], action){
   }  
   
   if(action.type === 'ADICIONAR_TAREFA'){
-    
-    console.log('cheguei no metodo de adicionar');
+        
     return [...state,
       {
         status: false,
