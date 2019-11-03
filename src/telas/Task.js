@@ -23,16 +23,15 @@ const Task = ({dataUsuario,dispatch,navigation}) => {
     <Header /> 
 
     <View style={styles.form}>
-        <Text style={styles.label}>Usuário</Text>
+        <Text style={styles.label}>Nome</Text>
         <TextInput 
         style={styles.input}
-        placeholder="Informe o usuário"
+        placeholder="Informe o nome"
         autoCapitalize="none"
         autoCorrect={false}
         value={nome}
         onChangeText={setNome}        
         />
-
 
     <Text style={styles.label}>Descrição</Text>
         <TextInput 

@@ -5,6 +5,12 @@ export function toogleStatus(id){
     id
   }
 }
+export function excluirTask(id){
+  return {
+    type: 'EXCLUIR_TASK',
+    id
+  }
+}
 export function adicionaTarefa(id_usuario,id_tarefa,nome,descricao){
   console.log('Aqui é o arquivo task actions');
   return {

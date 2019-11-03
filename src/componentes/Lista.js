@@ -17,25 +17,6 @@ const leftContent = (
     <Text style={styles.textAbrirTarefa}>Visualizar</Text>
   </View>
 );
-//|Lado direito
-const rightContent= [
-  <TouchableOpacity
-  style={[styles.abrirTarefa, {justifyContent: 'flex-start'}]}
-  onPress={() => onDelete(item.id)}
-  >
-    <Feather name="trash-2" size={25} color="red"/>
-    <Text style={{color:'red', fontWeight:'bold'}}>Excluir</Text>
-  </TouchableOpacity>,  
-
-  <TouchableOpacity
-  style={[styles.abrirTarefa, {justifyContent: 'flex-start'}]}
-  onPress={() => onDelete(item.id)}
-  >
-    <Feather name="edit" size={25} color="#FFF"/>
-    <Text style={{color:'#FFF', fontWeight:'bold'}}>Editar</Text>
-  </TouchableOpacity>, 
-];
-
   
 console.log('sentro do lista');
   console.log(data);
@@ -59,7 +40,26 @@ return(
             leftActionActivationDistance={150}
             onLeftActionActivate={() => Alert.alert(`${item.nome}`, `${item.descricao}`)}
             leftContent={leftContent}
-            rightButtons={rightContent}>
+
+            rightButtons={
+              [
+                <TouchableOpacity
+                style={[styles.abrirTarefa, {justifyContent: 'flex-start'}]}
+                onPress={() => dispatch(TasksActons.excluirTask(item.id))}
+                >
+                  <Feather name="trash-2" size={25} color="red"/>
+                  <Text style={{color:'red', fontWeight:'bold'}}>Excluir</Text>
+                </TouchableOpacity>,  
+              
+                <TouchableOpacity
+                style={[styles.abrirTarefa, {justifyContent: 'flex-start'}]}
+                onPress={() => onDelete(item.id)}
+                >
+                  <Feather name="edit" size={25} color="#FFF"/>
+                  <Text style={{color:'#FFF', fontWeight:'bold'}}>Editar</Text>
+                </TouchableOpacity>, 
+              ]
+            }>
             <View style={styles.container}>
 
 

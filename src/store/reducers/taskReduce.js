@@ -8,8 +8,6 @@ export default function taskReduce(state = [], action){
 
   
   if(action.type === 'TOOGLE_STATUS'){
-    console.log('cheguei no metodo de toogle');
-
     const newState = state.map((dados,index,array) =>{
       if(dados.id === action.id){
         dados.status = !dados.status;
@@ -19,6 +17,12 @@ export default function taskReduce(state = [], action){
     return newState;
   }
 
+  if(action.type === 'EXCLUIR_TASK'){ 
+    // O filter irá retornar um novo estado
+    // com todas as tasks diferentes da que passei por parâmetro
+    // no action
+    return newState = state.filter(task => task.id != action.id);    
+  }  
   
   if(action.type === 'ADICIONAR_TAREFA'){
     
