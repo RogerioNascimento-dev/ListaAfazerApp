@@ -1,17 +1,43 @@
 import React from 'react';
-import {View, Text, ScrollView, FlatList, StyleSheet,TouchableOpacity} from 'react-native';
+import {View, Text,Alert, ScrollView, FlatList, StyleSheet,TouchableOpacity} from 'react-native';
 import Swipeable from 'react-native-swipeable';
 import {Feather} from '@expo/vector-icons';
 import { connect } from 'react-redux';
+import * as TasksActons from  '../../src/store/actions/taskAction';
 
-const Lista = ({data, dispatch}) =>{
+const Lista = ({data, dispatch}) =>{ 
 
-  function toogleStatus(id){
-    return {
-      type: 'TOOGLE_STATUS',
-      id
-    }
-  }
+//| INICIANDO CONFIGURAÇÕES NECESSÁRIAS PARA FUNCIONAMENTO DO Swipeable |\\
+
+//| Lado Esquerdo
+const leftContent = (
+  <View style={styles.abrirTarefa}>
+    <Feather name="book-open" size={25} color="#FFF"/>
+    <Text style={styles.textAbrirTarefa}>Visualizar</Text>
+  </View>
+);
+//|Lado direito
+const rightContent= [
+  <TouchableOpacity
+  style={[styles.abrirTarefa, {justifyContent: 'flex-start'}]}
+  onPress={() => onDelete(item.id)}
+  >
+    <Feather name="trash-2" size={25} color="red"/>
+    <Text style={{color:'red', fontWeight:'bold'}}>Excluir</Text>
+  </TouchableOpacity>,  
+
+  <TouchableOpacity
+  style={[styles.abrirTarefa, {justifyContent: 'flex-start'}]}
+  onPress={() => onDelete(item.id)}
+  >
+    <Feather name="edit" size={25} color="#FFF"/>
+    <Text style={{color:'#FFF', fontWeight:'bold'}}>Editar</Text>
+  </TouchableOpacity>, 
+];
+
+  
+
+
 return(
 <View style={styles.container}>
       <ScrollView>
@@ -26,17 +52,29 @@ return(
                 valoresIcone = {name: 'square', cor: '#CCC'}
               }
             return (
+
+            <Swipeable
+            leftActionActivationDistance={150}
+            onLeftActionActivate={() => Alert.alert(`${item.nome}`, `${item.descricao}`)}
+            leftContent={leftContent}
+            rightButtons={rightContent}>
+            <View style={styles.container}>
+
+
+            </View>
               <View style={styles.containerItem}>
-              <TouchableOpacity style={styles.containerIcone}
-              onPress={() => dispatch(toogleStatus(item.id))}
-              >
+                <TouchableOpacity style={styles.containerIcone}
+                onPress={() => dispatch(TasksActons.toogleStatus(item.id))}
+                >
                   <Feather  size={25} color={valoresIcone.cor} name={valoresIcone.name} />
-              </TouchableOpacity>
-              <View style={styles.containerInfos}>
-                <Text style={styles.nome}>{item.nome}</Text>
-                <Text style={styles.descricao}>{item.descricao}</Text>
+                </TouchableOpacity>
+                <View style={styles.containerInfos}>
+                  <Text style={styles.nome}>{item.nome}</Text>
+                  <Text style={styles.descricao}>{item.descricao}</Text>
+                </View>
               </View>
-              </View>
+
+        </Swipeable>
 
             )}
             }
@@ -70,6 +108,18 @@ return(
       },
       descricao:{
         color: '#9ab2c5',
+      },
+      abrirTarefa:{
+        flex: 1,
+        backgroundColor: '#9ab2c5',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+      },
+      textAbrirTarefa:{
+        color: '#fff',
+        fontWeight: 'bold',
+        marginRight: 10,
       }
     })
 
