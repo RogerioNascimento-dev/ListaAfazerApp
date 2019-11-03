@@ -16,9 +16,8 @@ const Header = ({dadosUsuario, dispatch,navigation}) =>{
   return (
     <SafeAreaView style={styles.container}>
       <Image source={logoWhite} style={styles.logoWhite}/>
-
       <TouchableOpacity style={styles.containerUsuario} onPress={()=> handleLogOut()}>
-        <Text style={styles.textUsuario}>Olá, Rogério Nascimento-> {dadosUsuario.Usuario}</Text>
+        <Text style={styles.textUsuario}>Olá, {dadosUsuario.nome}</Text>
           <Entypo name="log-out" color="#FFF" size={15} />
       </TouchableOpacity>
     </SafeAreaView>

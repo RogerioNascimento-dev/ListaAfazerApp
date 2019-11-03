@@ -1,15 +1,23 @@
 import React,{useState} from 'react';
-import {View, Text,TextInput, TouchableOpacity, StyleSheet} from 'react-native';
-import Header from '../componentes/Header';
+import {View,Alert, Text,TextInput, TouchableOpacity, StyleSheet} from 'react-native';
+import {connect} from 'react-redux';
 
-export default function Task({navigation}){
+import Header from '../componentes/Header';
+import * as TasksActons from  '../../src/store/actions/taskAction';
+import { gerarIdentificador } from '../funcoes';
+
+const Task = ({dataUsuario,dispatch,navigation}) => {
 
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
 
-  function handleLogin(){
-    alert('aaa');
+  function handleAddTarefa(){
+    const id = gerarIdentificador(); 
+    dispatch(TasksActons.adicionaTarefa(dataUsuario.id,id,nome,descricao));
+    Alert.alert('Sucesso!', 'Tarefa Cadastrada com sucesso!');
+    navigation.navigate('Home');
   }
+  
   return (    
     <>
     <Header /> 
@@ -42,7 +50,7 @@ export default function Task({navigation}){
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
           <Text style={styles.textButton}>Cancelar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <TouchableOpacity style={styles.button} onPress={() => handleAddTarefa()}>
           <Text style={styles.textButton}>Salvar</Text>
         </TouchableOpacity>
         </View>
@@ -52,6 +60,7 @@ export default function Task({navigation}){
   )
 }
 
+export default connect(state =>({ dataUsuario: state.usuarioReduce }))(Task);
 const styles = StyleSheet.create({
   contentBtns:{
     flexDirection: 'row',

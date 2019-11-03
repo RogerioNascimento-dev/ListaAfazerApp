@@ -1,5 +1,9 @@
 import React,{useState} from 'react';
 import {View,AsyncStorage, ImageBackground,Alert,TouchableOpacity,Image,KeyboardAvoidingView,TextInput, Text, StyleSheet} from 'react-native';
+import { connect } from 'react-redux';
+import * as TasksActons from  '../../src/store/actions/taskAction';
+import { gerarIdentificador } from '../../src/funcoes';
+
 // import { Provider } from 'react-redux';
 // import { PersistGate } from 'redux-persist/integration/react';
 // import {store, persistor} from '../store';
@@ -9,17 +13,14 @@ import bgLogin from '../assets/bgLogin.jpg';
 import logo from '../assets/logo.png';
 
 
-export default function Login({navigation}){
+const  Login = ({data, dispatch, navigation}) =>{
+
   const [cadastraOuLoga, setCadastraOuLoga] = useState(false);
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');  
   const [senhaConfirm,setSenhaConfirm] = useState('');
   
-function gerarIdentificador(){    
-      var d = new Date();
-      var n = d.getTime();
-     return n;
-  }
+
 
   async function handleLogin(){
     //obtem os usuários cadastrados
@@ -45,6 +46,8 @@ function gerarIdentificador(){
       }else{
         usuarios.autenticado = usuarioAutenticado.id;
         await AsyncStorage.setItem('userData', JSON.stringify(usuarios));
+
+        dispatch(TasksActons.autenticaUsuario(usuarioAutenticado.id,usuarioAutenticado.usuario));
         navigation.navigate('Home');
       }
 
@@ -76,7 +79,9 @@ function gerarIdentificador(){
 
             usuarios.autenticado = novo_id;
             usuarios.cadastrados.push(novo_usuario);
-            await AsyncStorage.setItem('userData', JSON.stringify(usuarios));            
+            await AsyncStorage.setItem('userData', JSON.stringify(usuarios));
+            
+            dispatch(TasksActons.autenticaUsuario(novo_id,usuario));
             Alert.alert(`${usuario} Cadastrado com sucesso!`);
             navigation.navigate('Home');
         }
@@ -143,6 +148,7 @@ function gerarIdentificador(){
   //   </Provider>  
   )
 }
+export default connect(state => ({ data: state.usuarioReduce} ))(Login);
 
 const styles = StyleSheet.create({
   container:{
