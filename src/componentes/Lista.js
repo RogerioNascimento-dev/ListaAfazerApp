@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as TasksActons from  '../../src/store/actions/taskAction';
 
 
-const Lista = ({data, dispatch, navigation}) =>{ 
+const Lista = ({data, dataUsuario, dispatch, navigation}) =>{ 
 
 //| INICIANDO CONFIGURAÇÕES NECESSÁRIAS PARA FUNCIONAMENTO DO Swipeable |\\
 
@@ -17,17 +17,19 @@ const leftContent = (
     <Text style={styles.textAbrirTarefa}>Visualizar</Text>
   </View>
 );
-  
-console.log('sentro do lista');
-  console.log(data);
 
+// APLICANDO FILTRO PARA RETORNAR APENAS TAREFA DO USUARIO
+// QUE ESTÁ AUTENTICADO
+
+const taskUsuario = data.filter(task => task.id_usuario === dataUsuario.id);
+console.log(taskUsuario)
 return(
 <View style={styles.container}>
       <ScrollView>
           <FlatList 
             style={styles.list}
-            data={data}
-            keyExtractor={data => `${data.id}`}
+            data={taskUsuario}
+            keyExtractor={taskUsuario => `${taskUsuario.id}`}
             renderItem={({ item }) =>{  
               if(item.status){
                 valoresIcone = {name: 'x-square',cor: '#00b711'}
@@ -125,4 +127,4 @@ return(
       }
     })
 
-    export default connect(state => ({ data: state.taskReduce} ))(Lista);
+    export default connect(state => ({ data: state.taskReduce, dataUsuario: state.usuarioReduce } ))(Lista);
