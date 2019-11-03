@@ -65,6 +65,7 @@ const  Login = ({dadosUsuario, dispatch, navigation}) =>{
         }        
         await AsyncStorage.setItem('userData', JSON.stringify(primeiroUsuario));
         Alert.alert(`${usuario} Cadastrado com sucesso!`);
+        navigation.navigate('Home');
       }else{        
         const novo_id = gerarIdentificador();
         const novo_usuario = {  
