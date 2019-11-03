@@ -5,7 +5,8 @@ import {Feather} from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import * as TasksActons from  '../../src/store/actions/taskAction';
 
-const Lista = ({data, dispatch}) =>{ 
+
+const Lista = ({data, dispatch, navigation}) =>{ 
 
 //| INICIANDO CONFIGURAÇÕES NECESSÁRIAS PARA FUNCIONAMENTO DO Swipeable |\\
 
@@ -36,7 +37,8 @@ const rightContent= [
 ];
 
   
-
+console.log('sentro do lista');
+  console.log(data);
 
 return(
 <View style={styles.container}>
@@ -79,7 +81,7 @@ return(
             )}
             }
           />
-      </ScrollView>           
+      </ScrollView>       
     </View> 
     )}
 

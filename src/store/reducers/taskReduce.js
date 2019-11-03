@@ -22,7 +22,8 @@ const INITIAL_STATE = [
   },      
 ];
 
-export default function taskReduce(state = INITIAL_STATE, action){   
+export default function taskReduce(state = INITIAL_STATE, action){ 
+  console.log("Chamou reduce task");  
   if(action.type === 'TOOGLE_STATUS'){
     const newState = state.map((dados,index,array) =>{
       if(dados.id === action.id){

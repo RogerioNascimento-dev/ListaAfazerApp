@@ -4,9 +4,10 @@ import Home from './telas/Home';
 import Task from './telas/Task';
 
 
+
 const Routes = createAppContainer(
   createSwitchNavigator(
-    {Home, Login, Task}
+    { Login,Home, Task }
   )
 )
 
