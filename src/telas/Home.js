@@ -7,7 +7,7 @@ export default function Home({navigation}){
  return(  
     <>
      <Header />  
-      <Lista />
+      <Lista /> 
       <ActionButton buttonColor="#07528f" onPress={() => navigation.navigate('Task')} />                           
     </> 
   )

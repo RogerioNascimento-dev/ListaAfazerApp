@@ -13,14 +13,14 @@ const  Login = ({dadosUsuario, dispatch, navigation}) =>{
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');  
   const [senhaConfirm,setSenhaConfirm] = useState('');
-  
+ 
   //Verificar se tem algum usuário autenticado
-  // e redireciona para tela Home  
+  // e redireciona para tela Home 
+  useEffect(() =>{   
   if(dadosUsuario){
     navigation.navigate('Home');
   }
-  
-
+  },[]);
 
   async function handleLogin(){
     //obtem os usuários cadastrados
@@ -45,8 +45,8 @@ const  Login = ({dadosUsuario, dispatch, navigation}) =>{
         usuarios.autenticado = usuarioAutenticado.id;
         await AsyncStorage.setItem('userData', JSON.stringify(usuarios));
 
-        dispatch(TasksActons.autenticaUsuario(usuarioAutenticado.id,usuarioAutenticado.usuario));
-        navigation.navigate('Home');
+       dispatch(TasksActons.autenticaUsuario(usuarioAutenticado.id,usuarioAutenticado.usuario));
+       navigation.navigate('Home');
       }
 
     }else if(!cadastraOuLoga && !usuarios){
@@ -91,7 +91,7 @@ const  Login = ({dadosUsuario, dispatch, navigation}) =>{
   const textBtnCadastroOuLogin = (cadastraOuLoga)?'Cadastrar':'Logar';
 
   
-  return (       
+  return (     
   
     <ImageBackground source={bgLogin} style={styles.container}> 
       <Image source={logo} />
@@ -106,7 +106,6 @@ const  Login = ({dadosUsuario, dispatch, navigation}) =>{
         value={usuario}
         onChangeText={setUsuario}        
         />
-
 
     <Text style={styles.label}>Senha</Text>
         <TextInput 
