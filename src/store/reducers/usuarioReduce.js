@@ -1,12 +1,7 @@
-import {AsyncStorage} from 'react-native';
-
-
-export default function usuarioReduce(state, action){
-  state = [];
-  AsyncStorage.getItem('userData').then((valor)=>{  
-    console.log('É OQ RETORNOU '+valor);
-    state = JSON.parse(valor);
-  }).catch();  
+export default function usuarioReduce(state = {}, action){
   
+  if(action.type === 'USUARIO_LOGADO'){
+    return {id:action.id, nome:action.nome};
+  }
   return state;
 }

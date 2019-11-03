@@ -1,5 +1,10 @@
 import React,{useState} from 'react';
 import {View,AsyncStorage, ImageBackground,Alert,TouchableOpacity,Image,KeyboardAvoidingView,TextInput, Text, StyleSheet} from 'react-native';
+// import { Provider } from 'react-redux';
+// import { PersistGate } from 'redux-persist/integration/react';
+// import {store, persistor} from '../store';
+
+
 import bgLogin from '../assets/bgLogin.jpg';
 import logo from '../assets/logo.png';
 
@@ -81,7 +86,9 @@ function gerarIdentificador(){
   function toggleCadastro(){
     setCadastraOuLoga(!cadastraOuLoga);
   }
-  return (        
+  return (       
+    // <Provider store={store}>  
+    // <PersistGate loading={null} persistor={persistor}>
     <ImageBackground source={bgLogin} style={styles.container}> 
       <Image source={logo} />
 
@@ -132,6 +139,8 @@ function gerarIdentificador(){
         </TouchableOpacity>        
       </View>      
   </ImageBackground> 
+  // </PersistGate>
+  //   </Provider>  
   )
 }
 
