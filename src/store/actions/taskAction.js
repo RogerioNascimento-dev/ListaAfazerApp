@@ -22,6 +22,15 @@ export function adicionaTarefa(id_usuario,id_tarefa,nome,descricao){
   }
 }
 
+export function editarTarefa(id,nome,descricao){
+  return {
+    type: 'EDITAR_TAREFA',
+    id_tarefa: id,
+    nome,
+    descricao
+  }
+}
+
 /* Actions relacionados ao usuário */
 export function autenticaUsuario(id,nome){
   return {

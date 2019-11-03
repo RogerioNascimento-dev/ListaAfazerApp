@@ -5,12 +5,22 @@ const INITIAL_STATE = [
 ];
 
 export default function taskReduce(state = [], action){    
-
   
   if(action.type === 'TOOGLE_STATUS'){
     const newState = state.map((dados,index,array) =>{
       if(dados.id === action.id){
         dados.status = !dados.status;
+      }
+      return dados;
+    });
+    return newState;
+  }
+
+  if(action.type === 'EDITAR_TAREFA'){
+    const newState = state.map((dados,index,array) =>{
+      if(dados.id === action.id_tarefa){
+        dados.nome = action.nome;
+        dados.descricao = action.descricao;
       }
       return dados;
     });

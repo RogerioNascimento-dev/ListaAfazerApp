@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text,Alert, ScrollView, FlatList, StyleSheet,TouchableOpacity} from 'react-native';
 import Swipeable from 'react-native-swipeable';
+import {withNavigation} from 'react-navigation';
 import {Feather} from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import * as TasksActons from  '../../src/store/actions/taskAction';
@@ -8,21 +9,10 @@ import * as TasksActons from  '../../src/store/actions/taskAction';
 
 const Lista = ({data, dataUsuario, dispatch, navigation}) =>{ 
 
-//| INICIANDO CONFIGURAÇÕES NECESSÁRIAS PARA FUNCIONAMENTO DO Swipeable |\\
-
-//| Lado Esquerdo
-const leftContent = (
-  <View style={styles.abrirTarefa}>
-    <Feather name="book-open" size={25} color="#FFF"/>
-    <Text style={styles.textAbrirTarefa}>Visualizar</Text>
-  </View>
-);
-
 // APLICANDO FILTRO PARA RETORNAR APENAS TAREFA DO USUARIO
 // QUE ESTÁ AUTENTICADO
-
 const taskUsuario = data.filter(task => task.id_usuario === dataUsuario.id);
-console.log(taskUsuario)
+
 return(
 <View style={styles.container}>
       <ScrollView>
@@ -37,12 +27,15 @@ return(
                 valoresIcone = {name: 'square', cor: '#CCC'}
               }
             return (
-
             <Swipeable
             leftActionActivationDistance={150}
             onLeftActionActivate={() => Alert.alert(`${item.nome}`, `${item.descricao}`)}
-            leftContent={leftContent}
-
+            leftContent={(
+              <View style={styles.abrirTarefa}>
+                <Feather name="book-open" size={25} color="#FFF"/>
+                <Text style={styles.textAbrirTarefa}>Visualizar</Text>
+              </View>
+            )}
             rightButtons={
               [
                 <TouchableOpacity
@@ -55,7 +48,12 @@ return(
               
                 <TouchableOpacity
                 style={[styles.abrirTarefa, {justifyContent: 'flex-start'}]}
-                onPress={() => onDelete(item.id)}
+                onPress={() => navigation.navigate('Task',
+                {
+                  id_edit: item.id,
+                  nome_edit: item.nome,
+                  descricao_edit:item.descricao
+                })}
                 >
                   <Feather name="edit" size={25} color="#FFF"/>
                   <Text style={{color:'#FFF', fontWeight:'bold'}}>Editar</Text>
@@ -127,4 +125,4 @@ return(
       }
     })
 
-    export default connect(state => ({ data: state.taskReduce, dataUsuario: state.usuarioReduce } ))(Lista);
+    export default connect(state => ({ data: state.taskReduce, dataUsuario: state.usuarioReduce } ))(withNavigation(Lista));

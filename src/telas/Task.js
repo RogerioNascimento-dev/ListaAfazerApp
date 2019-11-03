@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {View,Alert, Text,TextInput, TouchableOpacity, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 
@@ -10,14 +10,42 @@ const Task = ({dataUsuario,dispatch,navigation}) => {
 
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
+  const [atualizaTesk,setAtualizaTesk] = useState(null);
+
+  //Capturando parametros e setando para para edição
+  useEffect(() =>{
+    if(navigation.getParam('nome_edit')){      
+      setNome(navigation.getParam('nome_edit'))      
+    }
+    if(navigation.getParam('descricao_edit')){      
+      setDescricao(navigation.getParam('descricao_edit'))
+    }
+
+    if(navigation.getParam('id_edit')){
+      setAtualizaTesk(navigation.getParam('id_edit'));
+    }
+  },[])
+  
 
   function handleAddTarefa(){
-    const id = gerarIdentificador(); 
-    dispatch(TasksActons.adicionaTarefa(dataUsuario.id,id,nome,descricao));
-    Alert.alert('Sucesso!', 'Tarefa Cadastrada com sucesso!');
+    if(atualizaTesk){
+
+      const id = atualizaTesk; 
+      dispatch(TasksActons.editarTarefa(id,nome,descricao));
+      Alert.alert('Sucesso!', 'Tarefa atualizada com sucesso!');     
+
+    }else{
+      const id = gerarIdentificador(); 
+      dispatch(TasksActons.adicionaTarefa(dataUsuario.id,id,nome,descricao));
+      Alert.alert('Sucesso!', 'Tarefa Cadastrada com sucesso!');
+    }
+
     navigation.navigate('Home');
   }
-  
+
+  //Dinamizando textos e ações se for para atualizar ou cadastrar
+  let textoBotaoSalvar = (atualizaTesk)?'Atualizar':'Cadastrar';
+
   return (    
     <>
     <Header /> 
@@ -48,9 +76,9 @@ const Task = ({dataUsuario,dispatch,navigation}) => {
 <View style={styles.contentBtns}>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
           <Text style={styles.textButton}>Cancelar</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>        
         <TouchableOpacity style={styles.button} onPress={() => handleAddTarefa()}>
-          <Text style={styles.textButton}>Salvar</Text>
+          <Text style={styles.textButton}>{textoBotaoSalvar}</Text>
         </TouchableOpacity>
         </View>
                 
