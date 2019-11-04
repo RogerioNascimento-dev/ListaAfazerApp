@@ -30,17 +30,25 @@ const Task = ({dataUsuario,dispatch,navigation}) => {
   function handleAddTarefa(){
     if(atualizaTesk){
 
-      const id = atualizaTesk; 
-      dispatch(TasksActons.editarTarefa(id,nome,descricao));
-      Alert.alert('Sucesso!', 'Tarefa atualizada com sucesso!');     
+      if(!nome || !descricao){
+        Alert.alert('Ops!','Parece que você esqueceu de preencher algum campo :)');
+      }else{
+        const id = atualizaTesk; 
+        dispatch(TasksActons.editarTarefa(id,nome,descricao));
+        navigation.navigate('Home');
+        Alert.alert('Sucesso!', 'Tarefa atualizada com sucesso!');         
+      }   
 
     }else{
-      const id = gerarIdentificador(); 
-      dispatch(TasksActons.adicionaTarefa(dataUsuario.id,id,nome,descricao));
-      Alert.alert('Sucesso!', 'Tarefa Cadastrada com sucesso!');
-    }
-
-    navigation.navigate('Home');
+      if(!nome || !descricao){
+        Alert.alert('Ops!','Parece que você esqueceu de preencher algum campo :)');
+      }else{
+        const id = gerarIdentificador(); 
+        dispatch(TasksActons.adicionaTarefa(dataUsuario.id,id,nome,descricao));
+        navigation.navigate('Home');
+        Alert.alert('Sucesso!', 'Tarefa Cadastrada com sucesso!');        
+      }
+    }    
   }
 
   //Dinamizando textos e ações se for para atualizar ou cadastrar
@@ -65,7 +73,7 @@ const Task = ({dataUsuario,dispatch,navigation}) => {
         <TextInput 
         style={[styles.input,{height:80}]}
         placeholder="Informe a descricao"
-        autoCapitalize="words"
+        autoCapitalize="words"        
         autoCorrect={true}        
         multiline={true}
         numberOfLines={4}
@@ -116,7 +124,7 @@ const styles = StyleSheet.create({
   input:{
     borderWidth: 1,
     borderColor: '#9ab2c5',
-    paddingHorizontal: 20,      
+    paddingHorizontal: 10,      
     fontSize: 16,    
     height: 44,
     marginBottom: 20,

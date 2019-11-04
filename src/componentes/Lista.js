@@ -102,11 +102,11 @@ return(
       containerIcone:{
         paddingLeft: 10,    
       },
-      containerInfos:{
-        marginLeft: 10,        
+      containerInfos:{        
+        justifyContent: 'space-between',
+        marginLeft: 10,                
       },
-      nome:{
-        paddingTop:15,
+      nome:{        
         fontSize: 20,
         color: '#07528f'
       },
