@@ -55,19 +55,20 @@ const Task = ({dataUsuario,dispatch,navigation}) => {
         <TextInput 
         style={styles.input}
         placeholder="Informe o nome"
-        autoCapitalize="none"
-        autoCorrect={false}
+        autoCapitalize="words"
+        autoCorrect={true}
         value={nome}
         onChangeText={setNome}        
         />
 
     <Text style={styles.label}>Descrição</Text>
         <TextInput 
-        style={styles.input}
+        style={[styles.input,{height:80}]}
         placeholder="Informe a descricao"
-        autoCapitalize="none"
-        autoCorrect={false}
-        keyboardType="visible-password"
+        autoCapitalize="words"
+        autoCorrect={true}        
+        multiline={true}
+        numberOfLines={4}
         value={descricao}
         onChangeText={setDescricao}        
         />

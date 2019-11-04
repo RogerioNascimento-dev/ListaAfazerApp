@@ -5,6 +5,7 @@ import {withNavigation} from 'react-navigation';
 import {Feather} from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import * as TasksActons from  '../../src/store/actions/taskAction';
+import { limitaCaracteres } from '../../src/funcoes';
 
 
 const Lista = ({data, dataUsuario, dispatch, navigation}) =>{ 
@@ -71,8 +72,8 @@ return(
                   <Feather  size={25} color={valoresIcone.cor} name={valoresIcone.name} />
                 </TouchableOpacity>
                 <View style={styles.containerInfos}>
-                  <Text style={styles.nome}>{item.nome}</Text>
-                  <Text style={styles.descricao}>{item.descricao}</Text>
+                  <Text style={styles.nome}>{limitaCaracteres(item.nome,25,'...')}</Text>
+                  <Text style={styles.descricao}>{limitaCaracteres(item.descricao,90,'...')}</Text>
                 </View>
               </View>
 
@@ -102,13 +103,15 @@ return(
         paddingLeft: 10,    
       },
       containerInfos:{
-        marginLeft: 10,
+        marginLeft: 10,        
       },
       nome:{
+        paddingTop:15,
         fontSize: 20,
         color: '#07528f'
       },
       descricao:{
+        marginRight:15, 
         color: '#9ab2c5',
       },
       abrirTarefa:{
