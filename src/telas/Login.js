@@ -63,9 +63,18 @@ const  Login = ({dadosUsuario, dispatch, navigation}) =>{
             senha: senha,
             }]
         }        
-        await AsyncStorage.setItem('userData', JSON.stringify(primeiroUsuario));
-        Alert.alert(`${usuario} Cadastrado com sucesso!`);
-        navigation.navigate('Home');
+
+        
+        if(senhaConfirm != senha){
+          Alert.alert('Ops!','As senhas informadas são diferentes.');
+        }else{
+          await AsyncStorage.setItem('userData', JSON.stringify(primeiroUsuario));
+          dispatch(TasksActons.autenticaUsuario(novo_id,usuario));
+          Alert.alert(`${usuario} Cadastrado com sucesso!`);
+          navigation.navigate('Home');
+        }
+
+
       }else{        
         const novo_id = gerarIdentificador();
         const novo_usuario = {  
@@ -73,13 +82,17 @@ const  Login = ({dadosUsuario, dispatch, navigation}) =>{
             usuario: usuario,
             senha: senha,
             }
-            usuarios.autenticado = novo_id;
-            usuarios.cadastrados.push(novo_usuario);
-            await AsyncStorage.setItem('userData', JSON.stringify(usuarios));
-            
-            dispatch(TasksActons.autenticaUsuario(novo_id,usuario));
-            Alert.alert(`${usuario} Cadastrado com sucesso!`);
-            navigation.navigate('Home');
+            if(senhaConfirm != senha){
+              Alert.alert('Ops!','As senhas informadas são diferentes.');
+            }else{
+              usuarios.autenticado = novo_id;
+              usuarios.cadastrados.push(novo_usuario);
+              await AsyncStorage.setItem('userData', JSON.stringify(usuarios));
+              
+              dispatch(TasksActons.autenticaUsuario(novo_id,usuario));
+              Alert.alert(`${usuario} Cadastrado com sucesso!`);
+              navigation.navigate('Home');
+            }           
         }
       }
   }
