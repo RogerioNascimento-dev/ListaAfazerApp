@@ -6,7 +6,7 @@ import {Entypo} from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import * as TasksActons from  '../../src/store/actions/taskAction';
 
-const Header = ({dadosUsuario, dispatch,navigation}) =>{
+const Header = ({dadosUsuario, dispatch, navigation}) =>{
   
   function handleLogOut(){
     dispatch(TasksActons.logout());
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
     marginRight: 10,
     fontSize: 15,
-  } 
+  },
 });
 
 export default connect(state => ({dadosUsuario: state.usuarioReduce}))(withNavigation(Header));
