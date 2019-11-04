@@ -26,7 +26,7 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": "",
+    "description": "App para Listagem de a fazeres .\n\nRecursos e funcionalidades.\n* Sistema de login e cadastro de usuário.\n* Listagem de a fazeres por usuário,  com título,  descrição e status de conclusão.\n* Visualização individual de cada item \"a fazer\".\n* Exclusão  de \"a fazer\".\n* Edição \"a fazer\".\n* Verifica se existe usuário logado e redireciona direto para listagem.\n",
     "githubUrl": "https://github.com/RogerioNascimento-dev/ListaAfazerApp"
   }
 }
